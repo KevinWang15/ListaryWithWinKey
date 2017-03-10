@@ -43,10 +43,10 @@ namespace ListaryWithWinKey
                         {
                             // A win key press
 
-                            // Automatically send an invalid hot key (e.g Win+V) to system.
+                            // Automatically send an invalid hot key (e.g Win+J) to system.
                             // If we don't do this, the Win key will be locked up, and next time you try to type (e.g. type a), the system will recognize it as using a hotkey (Win+A).
-                            keybd_event((int)System.Windows.Forms.Keys.V, 0x45, KEYEVENTF_EXTENDEDKEY, 0);
-                            keybd_event((int)System.Windows.Forms.Keys.V, 0x45, KEYEVENTF_EXTENDEDKEY | KEYEVENTF_KEYUP, 0);
+                            keybd_event((int)System.Windows.Forms.Keys.J, 0x45, KEYEVENTF_EXTENDEDKEY, 0);
+                            keybd_event((int)System.Windows.Forms.Keys.J, 0x45, KEYEVENTF_EXTENDEDKEY | KEYEVENTF_KEYUP, 0);
                             keybd_event((int)System.Windows.Forms.Keys.LWin, 0x45, KEYEVENTF_EXTENDEDKEY | KEYEVENTF_KEYUP, 0);
 
                             //Now, call listary with Ctrl+Ctrl!
