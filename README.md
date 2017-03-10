@@ -7,6 +7,9 @@ It's essentially a program that remaps <kbd>Win</kbd> to <kbd>Ctrl+Ctrl</kbd>, t
 
 It uses a keyboard hook, so it may be reported by anti-virus software, but it is an open-source software with only 100+ lines of code, so you can check the source code and be assured that it does nothing harmful.
 
+# Download
+https://github.com/KevinWang15/ListaryWithWinKey/releases
+
 # How to use
 1. Make sure <kbd>Win+J</kbd> is not bound to any hotkey (required due to some technical issues explained in the code). If it is, either change the hotkey or modify the code to another <kbd>Win+...</kbd> that is not bound to any hotkey.
 2. Make sure you have [Listary](http://www.listary.com/) installed and the default shortcut <kbd>Ctrl+Ctrl</kbd> enabled.
@@ -18,7 +21,7 @@ It uses a keyboard hook, so it may be reported by anti-virus software, but it is
 Remapping is done when the program ```ListaryWithWinKey.exe``` is running. To disable it, simply use task manager to kill the process ```ListaryWithWinKey.exe```.
 
 # How to make it start on boot
-Copy the program ```ListaryWithWinKey.exe``` to ```C:\Users\Username\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup``` (replace ```Username``` with your user name) as explained [in this web page](!http://tunecomp.net/add-app-to-startup/).
+Copy the program ```ListaryWithWinKey.exe``` to ```C:\Users\Username\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup``` (replace ```Username``` with your user name) as explained [in this web page](http://tunecomp.net/add-app-to-startup/).
 
 # Current state of the program
 Tested on Windows 10 and it is working fine. More tests are needed. It is more a proof-of-concept than a reliable software. I also wish the devs of listary could see it and integrate the idea/code into their official release.
