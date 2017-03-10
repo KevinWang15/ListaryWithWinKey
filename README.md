@@ -3,25 +3,38 @@
 
 It's a great software, but for people like me who are used to windows search (press <kbd>Win</kbd> and then type), listary's default shortcut <kbd>Ctrl+Ctrl</kbd> can be a little clumsy and it takes some time to get used to it. The software itself doesn't offer a way to set the shortcut to <kbd>Win</kbd> and replace the original windows menu, so I wrote a C# program to make it happen.
 
-It's essentially a program that remaps <kbd>Win</kbd> to <kbd>Ctrl+Ctrl</kbd>, the remapping happens after <kbd>Win</kbd> is released so it doesn't interferes with other <kbd>Win</kbd>-related hotkeys such as <kbd>Win+D</kbd>. 
+It's essentially a program that remaps <kbd>Win</kbd> to a hotkey that shows Listary toolbar, the remapping happens after <kbd>Win</kbd> is released so it doesn't interferes with other <kbd>Win</kbd>-related hotkeys such as <kbd>Win+D</kbd>. 
 
-It uses a keyboard hook, so it may be reported by anti-virus software, but it is an open-source software with only 100+ lines of code, so you can check the source code and be assured that it does nothing harmful.
+It uses a keyboard hook, so it may be reported by anti-virus software, and it requires administrator privileges, but it is an open-source software with only 100+ lines of code, so you can check the source code and be assured that it does nothing harmful.
 
 # Download
 https://github.com/KevinWang15/ListaryWithWinKey/releases
 
 # How to use
-1. Make sure <kbd>Win+J</kbd> is not bound to any hotkey (required due to some technical issues explained in the code). If it is, either change the hotkey or modify the code to another <kbd>Win+...</kbd> that is not bound to any hotkey.
-2. Make sure you have [Listary](http://www.listary.com/) installed and the default shortcut <kbd>Ctrl+Ctrl</kbd> enabled.
-3. Run the program ```ListaryWithWinKey.exe```.
-4. Press <kbd>Win</kbd> to see if it works.
-5. If you wish to open the original Windows menu, either click on the left-bottom corner of your screen or press <kbd>Win</kbd> twice.
+1. Install and run [Listary](http://www.listary.com/).
+2. Configure Listary, in ```Hotkeys```, optionally disable ```Press Ctrl twice to show/hide Listary``` (if you trigger it by mistake sometimes and hate it).
+3. In ```Hotkeys```, configure ```Show Listary toolbar``` to <kbd>Ctrl+Shift+Alt+Win+F</kbd>. (press all five keys at the same time) (this is to make sure it doesn't conflict with other hotkeys, so that remapping <kbd>Win</kbd> to this hotkey will not have any side effect. If you don't like this shortcut, you can [modify the code.](https://github.com/KevinWang15/ListaryWithWinKey/blob/master/Program.cs#L44-L57))
+4. Run the program ```ListaryWithWinKey.exe``` as Administrator (double click and it will ask for administrator privilege).
+5. Press <kbd>Win</kbd> to open the launcher.
+6. Press <kbd>Win</kbd> again to close it.
 
 # How to disable it
 Remapping is done when the program ```ListaryWithWinKey.exe``` is running. To disable it, simply use task manager to kill the process ```ListaryWithWinKey.exe```.
 
 # How to make it start on boot
-Copy the program ```ListaryWithWinKey.exe``` to ```C:\Users\Username\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup``` (replace ```Username``` with your user name) as explained [in this web page](http://tunecomp.net/add-app-to-startup/).
+1. Copy ```ListaryWithWinKey.exe``` to a path where it can be kept well. (e.g. ```E:\ListaryWithWinKey.exe```)
+2. Open ```cmd``` **with administrator privilege**. [(how to?)](https://www.howtogeek.com/194041/how-to-open-the-command-prompt-as-administrator-in-windows-8.1/)
+3. Run 
+```
+schtasks /create /sc onlogon /tn ListaryWithWinKey /rl highest /tr "absolute\path\to\program"
+```
+
+Remember to replace ```absolute\path\to\program``` with the **absolute path** (mandatory) of the program that you have chosen. e.g.
+
+```
+schtasks /create /sc onlogon /tn ListaryWithWinKey /rl highest /tr "E:\ListaryWithWinKey.exe"
+```
+	
 
 # Current state of the program
 Tested on Windows 10 and it is working fine. More tests are needed. It is more a proof-of-concept than a reliable software. I also wish the devs of listary could see it and integrate the idea/code into their official release.
