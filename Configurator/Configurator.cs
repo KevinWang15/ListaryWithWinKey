@@ -34,15 +34,18 @@ namespace Configurator
 
         public void setLayout()
         {
-            if (isRunning())
+            if (running_button.Enabled)
             {
-                this.running_text.Text = "Running: Yes";
-                this.running_button.Text = "Stop";
-            }
-            else
-            {
-                this.running_text.Text = "Running: No";
-                this.running_button.Text = "Run";
+                if (isRunning())
+                {
+                    this.running_text.Text = "Running: Yes";
+                    this.running_button.Text = "Stop";
+                }
+                else
+                {
+                    this.running_text.Text = "Running: No";
+                    this.running_button.Text = "Run";
+                }
             }
             if (isStartOnBoot())
             {
@@ -59,6 +62,7 @@ namespace Configurator
         public Configurator()
         {
             InitializeComponent();
+            Control.CheckForIllegalCrossThreadCalls = false;
         }
 
         private void Configurator_Load(object sender, EventArgs e)
@@ -68,6 +72,7 @@ namespace Configurator
 
         private void running_button_Click(object sender, EventArgs e)
         {
+            running_button.Enabled = false;
             if (isRunning())
             {
                 Process[] processes = Process.GetProcessesByName("ListaryWithWinKey");
@@ -76,7 +81,6 @@ namespace Configurator
                     try
                     {
                         processes[i].Kill();
-
                     }
                     catch (Exception ex)
                     {
@@ -89,6 +93,7 @@ namespace Configurator
                 if (!File.Exists("ListaryWithWinKey.exe"))
                 {
                     MessageBox.Show("ListaryWithWinKey.exe not found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    running_button.Enabled = true;
                     return;
                 }
                 try
@@ -98,11 +103,19 @@ namespace Configurator
                 catch (Exception ex)
                 {
                     MessageBox.Show("Process start failed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    running_button.Enabled = true;
                     return;
                 }
             }
-            Thread.Sleep(1000);
-            setLayout();
+            new Thread(() =>
+            {
+                Thread.Sleep(1000);
+                this.Invoke((MethodInvoker)delegate ()
+               {
+                   running_button.Enabled = true;
+               });
+                setLayout();
+            }).Start();
         }
 
         private void layout_refresher_Tick(object sender, EventArgs e)
@@ -139,11 +152,13 @@ namespace Configurator
                     td.Triggers.Add(new LogonTrigger());
                     td.Settings.DisallowStartIfOnBatteries = false;
                     td.Settings.StopIfGoingOnBatteries = false;
+                    td.Settings.ExecutionTimeLimit = TimeSpan.Zero;
                     td.Principal.RunLevel = TaskRunLevel.Highest;
                     td.Actions.Add(new ExecAction(exePath, "", null));
                     ts.RootFolder.RegisterTaskDefinition("ListaryWithWinKey", td);
                 }
             }
+            setLayout();
         }
     }
 }
