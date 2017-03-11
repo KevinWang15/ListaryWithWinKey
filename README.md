@@ -19,22 +19,10 @@ https://github.com/KevinWang15/ListaryWithWinKey/releases
 6. Press <kbd>Win</kbd> again to close it.
 
 # How to disable it
-Remapping is done when the program ```ListaryWithWinKey.exe``` is running. To disable it, simply use task manager to kill the process ```ListaryWithWinKey.exe```.
+Run ```Configurator.exe``` and click ```Stop```.
 
 # How to make it start on boot
-1. Copy ```ListaryWithWinKey.exe``` to a path where it can be kept well. (e.g. ```E:\ListaryWithWinKey.exe```)
-2. Open ```cmd``` **with administrator privilege**. [(how to?)](https://www.howtogeek.com/194041/how-to-open-the-command-prompt-as-administrator-in-windows-8.1/)
-3. Run 
-```
-schtasks /create /sc onlogon /tn ListaryWithWinKey /rl highest /tr "absolute\path\to\program"
-```
-
-Remember to replace ```absolute\path\to\program``` with the **absolute path** (mandatory) of the program that you have chosen. e.g.
-
-```
-schtasks /create /sc onlogon /tn ListaryWithWinKey /rl highest /tr "E:\ListaryWithWinKey.exe"
-```
-	
+Run ```Configurator.exe``` and click ```Enable``` on ```Start on boot```.	
 
 # Current state of the program
 Tested on Windows 10 and it is working fine. More tests are needed. It is more a proof-of-concept than a reliable software. I also wish the devs of listary could see it and integrate the idea/code into their official release.
