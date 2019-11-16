@@ -35,11 +35,7 @@ namespace ListaryWithWinKey
                     
                     if ((int)wParam == WM_KEYUP)
                     {
-                        if (otherKeyPressed)
-                        {
-                            // A win key hotkey, do nothing
-                        }
-                        else
+                        if (!otherKeyPressed)
                         {
                             // Call listary with Ctrl+Shift+Alt+Win+F!
                             (new Thread(() => {
